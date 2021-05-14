@@ -6,6 +6,7 @@ package ru.job4j.generics;
  */
 
 import java.util.Iterator;
+import java.util.NoSuchElementException;
 import java.util.Objects;
 
 public class SimpleArray<T> implements Iterable<T> {
@@ -75,6 +76,23 @@ public class SimpleArray<T> implements Iterable<T> {
 
     @Override
     public Iterator<T> iterator() {
-        return new IteratorForSimpleArray<T>(models);
+        return new Itr();
+    }
+
+    private class Itr implements Iterator<T> {
+        int cursor = 0;
+
+        @Override
+        public boolean hasNext() {
+            return cursor < models.length;
+        }
+
+        @Override
+        public T next() {
+            if (!hasNext()) {
+                throw new NoSuchElementException();
+            }
+            return (T) models[cursor++];
+        }
     }
 }
