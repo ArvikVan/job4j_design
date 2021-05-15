@@ -2,7 +2,9 @@ package ru.job4j.generics;
 /**
  * класс описывает каркас хранилища
  * @author arvik
- * @version 1.0
+ * @version 1.1
+ * поиск определен один раз в методе и заменен там где используется
+ * int index = indexOf(id);
  */
 
 import java.util.ArrayList;
@@ -54,8 +56,9 @@ public final class MemStore<T extends Base> implements Store<T> {
     @Override
     public boolean replace(String id, T model) {
         boolean result = false;
-        if (indexOf(id) != -1) {
-            mem.set(indexOf(id), model);
+        int index = indexOf(id);
+        if (index != -1) {
+            mem.set(index, model);
             result = true;
         }
         return result;
@@ -72,8 +75,9 @@ public final class MemStore<T extends Base> implements Store<T> {
     @Override
     public boolean delete(String id) {
         boolean rsl = false;
-        if (indexOf(id) != -1) {
-            mem.remove(indexOf(id));
+        int index = indexOf(id);
+        if (index != -1) {
+            mem.remove(index);
             rsl = true;
         }
         return rsl;
@@ -88,8 +92,9 @@ public final class MemStore<T extends Base> implements Store<T> {
      */
     @Override
     public T findById(String id) {
-        if (indexOf(id) != -1) {
-            return mem.get(indexOf(id));
+        int index = indexOf(id);
+        if (index != -1) {
+            return mem.get(index);
         }
         return null;
     }
