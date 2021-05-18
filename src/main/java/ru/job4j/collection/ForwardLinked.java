@@ -2,8 +2,9 @@ package ru.job4j.collection;
 /**
  * класс описывает удаление первого элемента связанного списка
  * @author arvik
- * @version 1.1
+ * @version 1.2
  * добавляем метод addFirst()
+ * добавляем метод deleteLast()
  */
 
 import java.util.ArrayList;
@@ -14,8 +15,10 @@ import java.util.NoSuchElementException;
 public class ForwardLinked<T> implements Iterable<T> {
     /**
      * Node<T> head; первый узел
+     * Node<T> tail; последний узел
      */
     private Node<T> head;
+    private Node<T> tail;
 
     /**
      * добавление элемента
@@ -66,6 +69,20 @@ public class ForwardLinked<T> implements Iterable<T> {
             throw new NoSuchElementException();
         }
         head = node.next;
+        node.next = null;
+        return node.value;
+    }
+
+    /**
+     * удаляем последний элемент
+     * @return на выходе значение
+     */
+    public T deleteLast() {
+        final Node<T> node = tail;
+        if (tail == null) {
+            throw new NoSuchElementException();
+        }
+        tail = node.next;
         node.next = null;
         return node.value;
     }
