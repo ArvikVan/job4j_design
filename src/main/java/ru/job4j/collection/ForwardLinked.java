@@ -2,14 +2,14 @@ package ru.job4j.collection;
 /**
  * класс описывает удаление первого элемента связанного списка
  * @author arvik
- * @version 1.2
+ * @version 1.3
  * добавляем метод addFirst()
  * добавляем метод deleteLast()
+ * добавили меотд isEmpty()
+ * добавили метод revert()
  */
 
-import java.util.ArrayList;
 import java.util.Iterator;
-import java.util.LinkedList;
 import java.util.NoSuchElementException;
 
 public class ForwardLinked<T> implements Iterable<T> {
@@ -87,6 +87,41 @@ public class ForwardLinked<T> implements Iterable<T> {
         return node.value;
     }
 
+    /**
+     * переворачиваем список
+     * @return возвращаем тру если перевернули, фалс если нет
+     * если список содержит больше одного элемента,
+     * для этого если голова не равна null и следущий узел после головы не равен null
+     * хвосту присваиваем голову
+     * переменную - ссылку на текущий узел и записываем в него head.next
+     * в head.next записываем null, потому что это последний элемент списка
+     * а теперь будем идти по списку, до тех пор пока текущий элемент не равен null
+     * сохраняем ссылку на следущий элемент
+     * ссылка на предыдущий элемент хранится в head
+     *
+     */
+    public boolean revert() {
+        if (!isEmpty() && head.next != null) {
+            tail = head;
+            Node<T> current = head.next;
+            head.next = null;
+            while (current != null) {
+                Node<T> next = current.next;
+                current.next = head;
+                head = current;
+                current = next;
+            }
+        }
+        return false;
+    }
+
+    /**
+     * смотрим пусто ли
+     * @return если head null то пустой список
+     */
+    public boolean isEmpty() {
+        return head == null;
+    }
     /**
      * итератор
      * @return если голова не равна нулл, то смотрим на след элемент
