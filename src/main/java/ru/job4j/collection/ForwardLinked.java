@@ -2,10 +2,13 @@ package ru.job4j.collection;
 /**
  * класс описывает удаление первого элемента связанного списка
  * @author arvik
- * @version 1.0
+ * @version 1.1
+ * добавляем метод addFirst()
  */
 
+import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.LinkedList;
 import java.util.NoSuchElementException;
 
 public class ForwardLinked<T> implements Iterable<T> {
@@ -35,6 +38,18 @@ public class ForwardLinked<T> implements Iterable<T> {
             tail = tail.next;
         }
         tail.next = node;
+    }
+
+    /**
+     * добавление в первый узел
+     * @param value значение которое пойдет в голову
+     *              создаем ноду, удаляем head путем присовения ее следущему узлу, узел голова
+     *              тем самым на первый элемент подменяются ссылки.
+     */
+    public void addFirst(T value) {
+        Node<T> node = new Node<>(value, null);
+        node.next = head;
+        head = node;
     }
 
     /**
