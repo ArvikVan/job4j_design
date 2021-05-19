@@ -3,7 +3,9 @@ package ru.job4j.collection;
  * класс описывает FIFO - first input first output.
  * @param <T>
  * @author arvik
- * @version 1.0
+ * @version 1.1
+ * Стэк поддерживает вставку только в один конец. pushEnd() удалите
+ * ссылки на pushEnd() заменены на push()
  */
 public class SimpleQueue<T> {
     /**
@@ -30,7 +32,7 @@ public class SimpleQueue<T> {
     public T poll() {
         if (outSize == 0) {
             while (inSize > 0) {
-                out.pushEnd(in.pop());
+                out.push(in.pop());
                 outSize++;
                 inSize--;
             }
@@ -47,7 +49,7 @@ public class SimpleQueue<T> {
      */
     public void push(T value) {
         inSize++;
-        in.pushEnd(value);
+        in.push(value);
     }
 
 }

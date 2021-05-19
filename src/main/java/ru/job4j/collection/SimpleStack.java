@@ -5,8 +5,9 @@ package ru.job4j.collection;
  * реализовать добавление и удаление с одного конца
  * @param <T>
  * @author arvik
- * @version 1.1
+ * @version 1.2
  * добавили pushEnd(T value) для удаления последнего элемента
+ * Стэк поддерживает вставку только в один конец. pushEnd() удалите
  */
 public class SimpleStack<T> {
     private ForwardLinked<T> forwardLinked = new ForwardLinked<>();
@@ -33,7 +34,7 @@ public class SimpleStack<T> {
      * добавляется последний элемент
      * @param value значение которое добавляется
      */
-    public void pushEnd(T value) {
+     /*public void pushEnd(T value) {
         forwardLinked.add(value);
-    }
+    }*/
 }
