@@ -57,7 +57,7 @@ public class User {
         userObjectMap.put(second, new Object());
         for (Map.Entry<User, Object> user : userObjectMap.entrySet()) {
             System.out.println("key: " + user.getKey());
-            System.out.println("value: " + user.getValue());
+            System.out.println("hCode: " + user.hashCode());
         }
     }
 }
