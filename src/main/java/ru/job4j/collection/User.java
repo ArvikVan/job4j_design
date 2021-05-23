@@ -2,8 +2,10 @@ package ru.job4j.collection;
 /**
  * класс описывает модель данных
  * @author arvik
- * @version 1.1
+ * @version 1.3
  *  Без переопределения equals и hashCode
+ *  Переопределить только hashCode
+ *  Переопределить только equals
  */
 
 import java.util.*;
@@ -28,7 +30,7 @@ public class User {
                 + '}';
     }
 
-    /*@Override
+    @Override
     public boolean equals(Object o) {
         if (this == o) {
             return true;
@@ -38,12 +40,12 @@ public class User {
         }
         User user = (User) o;
         return children == user.children && Objects.equals(name, user.name) && Objects.equals(birthday, user.birthday);
-    }*/
+    }
 
-    @Override
+    /*@Override
     public int hashCode() {
         return Objects.hash(name, children, birthday);
-    }
+    }*/
 
     public static void main(String[] args) {
         User first = new User("FirstUser", 1,
