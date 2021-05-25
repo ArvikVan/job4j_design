@@ -55,7 +55,9 @@ public class User {
                 new GregorianCalendar(1981, 05, 31));
         Map<User, Object> userObjectMap = new HashMap<>();
         userObjectMap.put(first, new Object());
+        System.out.println(first.hashCode());
         userObjectMap.put(second, new Object());
+        System.out.println(second.hashCode());
         for (Map.Entry<User, Object> user : userObjectMap.entrySet()) {
             System.out.println("key: " + user.getKey());
             System.out.println("hCode: " + user.hashCode());
