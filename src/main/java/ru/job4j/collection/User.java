@@ -49,9 +49,9 @@ public class User {
     }
 
     public static void main(String[] args) {
-        User first = new User("FirstUser", 1,
+        User first = new User("USER", 1,
                 new GregorianCalendar(1981, 05, 31));
-        User second = new User("SecondUser", 1,
+        User second = new User("USER", 1,
                 new GregorianCalendar(1981, 05, 31));
         Map<User, Object> userObjectMap = new HashMap<>();
         userObjectMap.put(first, new Object());
