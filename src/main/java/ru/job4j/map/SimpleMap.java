@@ -2,7 +2,14 @@ package ru.job4j.map;
 /**
  * класс описывает мапу
  * @author arvik
- * @version 1.0
+ * @version 1.1
+ * 1.1 в методе expand() нужно уменьшать count, т.к.  put() его увеличивает
+ * 1.1 Чтобы это так работало вам нужно заменить table = mapEntry, потому вы
+ * по прежнему делаете вставку в старую таблицы.
+ * При этом предварительно нужно сохранить ссылку на старую таблицу.
+ * 1.1 Так же при расширении нужно делать проверку бакета на null, иначе получите NPE
+ * 1.1  В методе get() нужно делать проверку по equals(), чтобы в случае коллизии не получить не тот элемент
+ * 1.1 В методе remove() перед проверкой по equals() нужно делать проверку бакета на null
  */
 
 import java.util.ConcurrentModificationException;
@@ -68,14 +75,23 @@ public class SimpleMap<K, V> implements Map<K, V> {
      * расширяем мапу
      * расширяем мапу путем увеличения размера вдвое
      * создаем новую мапу с новым размером
+     * нужно заменить table = mapEntry, потому вы по прежнему делаете вставку
+     * в старую таблицы. При этом предварительно нужно сохранить ссылку на старую таблицу.
      * записываем все в нее
+     * 1.1 делаем проверку бакета на null, чтоб не было NPE
+     * уменьшаем при этом count т.к. пут его увеличивает
      * увеличиваем счетчик изменений
+     *
      */
     private void expand() {
         capacity = capacity * 2;
-        MapEntry<K, V>[] mapEntry = new MapEntry[capacity];
-        for (MapEntry<K, V> kvMapEntry : table) {
-            put(kvMapEntry.key, kvMapEntry.value);
+        MapEntry<K, V>[] mapEntry = table;
+        table = new MapEntry[capacity];
+        for (MapEntry<K, V> kvMapEntry : mapEntry) {
+            if (kvMapEntry != null) {
+                put(kvMapEntry.key, kvMapEntry.value);
+                count--;
+            }
         }
         modCount++;
     }
@@ -84,10 +100,16 @@ public class SimpleMap<K, V> implements Map<K, V> {
      *
      * @param key на входе ключ по которому надо вернуть значение
      * @return на выходе значение по ключу
+     * 1.1  В методе get() нужно делать проверку по equals(),
+     * чтобы в случае коллизии не получить не тот элемент
      */
     @Override
     public V get(K key) {
-        return table[indexFor(hash(key))] == null ? null : table[indexFor(hash(key))].value;
+        int index = indexFor(hash(key));
+        if (table[index] == null || !table[index].key.equals(key)) {
+               return null;
+           }
+           return table[index].value;
     }
 
     /**
@@ -95,15 +117,17 @@ public class SimpleMap<K, V> implements Map<K, V> {
      * @param key ключ что надо изничтожить
      * @return на выходе true если получилось, false если нет
      * имеем ключ который надо удалить, находим индекс
+     * 1.1 В методе remove() перед проверкой по equals() нужно делать проверку бакета на null
      * проверяем тот ли ключ, удаляем (table[index] = null;)
      * уменьшаем счетчик величины, увеличиваем счетчик изменений
+     *
      *
      */
     @Override
     public boolean remove(K key) {
         boolean result = false;
         int index = indexFor(hash(key));
-        if (table[index].key.equals(key)) {
+        if (table[index] != null && table[index].key.equals(key)) {
             table[index] = null;
             count--;
             modCount++;
