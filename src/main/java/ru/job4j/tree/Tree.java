@@ -19,6 +19,7 @@ public interface Tree<E> {
      */
     boolean add(E parent, E child);
     Optional<Node<E>> findBy(E value);
+    boolean isBinary();
 
     /**
      * класс Node описывает узел дерева. Узел содержит хранимое значение и ссылки на дочерние узлы.
