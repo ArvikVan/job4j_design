@@ -2,7 +2,9 @@ package ru.job4j.exam;
 /**
  * кдасс описывает слияние пользователей с их мылами
  * @author arvik
- * @version 1.0
+ * @version 1.1
+ * проверка сумм элементов с условием поменял на Collection.disjoint()
+ * проверка если две указанные коллекции не имеют общих элементов.
  */
 
 import java.util.*;
@@ -36,9 +38,7 @@ public class MergeUsers {
                 Set<String> set = new HashSet<>();
                 set.addAll(inElement.getValue());
                 set.addAll(outElement.getValue());
-                int fullSize = outElement.getValue().size()
-                        + inElement.getValue().size();
-                if (fullSize != set.size()) {
+                if (Collections.disjoint(in.values(), outElement.getValue())) {
                     inElement.setValue(set);
                 }
                 out.put(outElement.getKey(), inElement.getValue());
