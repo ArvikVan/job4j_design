@@ -2,11 +2,11 @@ package ru.job4j.io;
 /**
  * класс описывает выбор строки содержащей определенное условие
  * @author arvik
- * @version 1.0
+ * @version 1.1
+ * добавлен метод save() в котором производим запись в файл
  */
 
-import java.io.BufferedReader;
-import java.io.FileReader;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -30,7 +30,7 @@ public class LogFilter {
             while ((line = in.readLine()) != null) {
                 String[] str = line.split(" ");
                 if ("404".equals(str[str.length - 2])) {
-                    choosenElement.add(line + "\n");
+                    choosenElement.add(line + System.lineSeparator());
                 }
             }
         } catch (Exception e) {
@@ -39,9 +39,25 @@ public class LogFilter {
         return choosenElement;
     }
 
+    /**
+     *
+     * @param log на входе список строк полученный в фильтре
+     * @param file на входе строки которые надо записать в файл
+     */
+    public static void save(List<String> log, String file) {
+        try (PrintWriter out = new PrintWriter(new PrintWriter(
+                new BufferedOutputStream(
+                        new FileOutputStream(file))))) {
+                    out.write(String.valueOf(log));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
     public static void main(String[] args) {
         List<String> log = filter("log.txt");
         System.out.println(log);
+        save(log, "404.txt");
     }
 
 }
