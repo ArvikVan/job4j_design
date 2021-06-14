@@ -24,9 +24,9 @@ public class Analizy {
      */
     public void unavailable(String source, String target) {
         String startTime = null;
-        try (BufferedReader reader = new BufferedReader(new FileReader(source))) {
-            PrintWriter writer = new PrintWriter(new BufferedOutputStream(new FileOutputStream(target)));
-            for (String s = reader.readLine(); s != null; s = reader.readLine()) {
+        try (BufferedReader reader = new BufferedReader(new FileReader(source));
+            PrintWriter writer = new PrintWriter(new BufferedOutputStream(new FileOutputStream(target)))) {
+             for (String s = reader.readLine(); s != null; s = reader.readLine()) {
                 String[] arr = s.split(" ");
                 if ((arr[0].equals("400") || arr[0].equals("500")) && startTime == null) {
                     startTime = arr[1];
