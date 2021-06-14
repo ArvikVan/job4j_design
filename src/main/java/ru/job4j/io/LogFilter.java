@@ -30,7 +30,7 @@ public class LogFilter {
             while ((line = in.readLine()) != null) {
                 String[] str = line.split(" ");
                 if ("404".equals(str[str.length - 2])) {
-                    choosenElement.add(line + System.lineSeparator());
+                    choosenElement.add(line);
                 }
             }
         } catch (Exception e) {
