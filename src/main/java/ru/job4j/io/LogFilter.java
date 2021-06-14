@@ -2,8 +2,9 @@ package ru.job4j.io;
 /**
  * класс описывает выбор строки содержащей определенное условие
  * @author arvik
- * @version 1.1
+ * @version 1.2
  * добавлен метод save() в котором производим запись в файл
+ * Для большей читабельности лог имеет смысл записывать построчно с помощью foreach и println()
  */
 
 import java.io.*;
@@ -48,7 +49,7 @@ public class LogFilter {
         try (PrintWriter out = new PrintWriter(new PrintWriter(
                 new BufferedOutputStream(
                         new FileOutputStream(file))))) {
-                    out.write(String.valueOf(log));
+            log.forEach(System.out::println);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -56,7 +57,6 @@ public class LogFilter {
 
     public static void main(String[] args) {
         List<String> log = filter("log.txt");
-        System.out.println(log);
         save(log, "404.txt");
     }
 
