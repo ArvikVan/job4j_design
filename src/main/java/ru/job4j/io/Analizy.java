@@ -5,7 +5,8 @@ import java.io.*;
 /**
  * класс описывает преобразование одного файла в другой
  * @author arvik
- * @version 1.0
+ * @version 1.1
+ * убрал метод writer.close(); потому что используем try with resources
  */
 
 public class Analizy {
@@ -34,7 +35,6 @@ public class Analizy {
                     writer.printf("%s%n", startTime + "; " + arr[1] + ";");
                 }
             }
-            writer.close();
         } catch (Exception e) {
             e.printStackTrace();
         }
