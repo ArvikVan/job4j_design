@@ -2,7 +2,8 @@ package ru.job4j.io;
 /**
  * класс описывает работу с директориями файлов, класс в котором проводится манипуляция
  * @author arvik
- * @version 1.0
+ * @version 1.1
+ * добавлена валидация, изменена конфигурация - добавлены аргументы
  */
 
 import java.io.IOException;
@@ -21,8 +22,16 @@ public class Search {
      * поиск по предикату, выбираем файлы которые заканчиваются на js
      */
     public static void main(String[] args) throws IOException {
-        Path start = Paths.get(".");
-        search(start, p -> p.toFile().getName().endsWith("js")).forEach(System.out::println);
+        /**
+         * производим валидацию, должно быть два аргумента, если меньше двух то исключение
+         * первый аргумент путь, второй то расширение которое надо найти
+         * аргументы указаны в Edite Configuration через пробел
+         */
+        if (args.length < 2) {
+            throw new IllegalArgumentException("Need to set two parameters");
+        }
+        Path start = Paths.get(args[0]);
+        search(start, p -> p.toFile().getName().endsWith(args[1])).forEach(System.out::println);
     }
 
     /**
