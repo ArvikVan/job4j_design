@@ -2,9 +2,10 @@ package ru.job4j.io;
 /**
  * класс описывает работу с директориями
  * @author arvik
- * @version 1.1
+ * @version 1.2
  * file.getName(), file.length(), file.getTotalSpace()
  * без String.format
+ * завернул, согласно заданию, в цикл
  */
 
 import java.io.File;
@@ -18,6 +19,8 @@ public class Dir {
             if (!file.isDirectory()) {
                 throw new IllegalArgumentException(String.format("Not directory %s", file.getAbsoluteFile()));
             }
-            System.out.printf("The fileName: %s, and the fileLength: %s%n", file.getName(), file.length());
+        for (File subfile : file.listFiles()) {
+            System.out.printf("The fileName: %s, and the fileLength: %s%n", subfile.getName(), subfile.length());
+        }
     }
 }
