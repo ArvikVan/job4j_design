@@ -25,7 +25,7 @@ public class ArgsName {
      */
     private void parse(String[] args) {
         if (args.length == 0) {
-            throw new IllegalArgumentException("....args.length == 0....");
+            throw new IllegalArgumentException("....args.length == 0 Find why 'args.length' could be 0....");
         }
         for (String arg : args) {
             String[] temp = arg.split("=");
@@ -34,7 +34,6 @@ public class ArgsName {
             }
             values.put(temp[0].substring(1), temp[1]);
         }
-
     }
 
     public static ArgsName of(String[] args) {
