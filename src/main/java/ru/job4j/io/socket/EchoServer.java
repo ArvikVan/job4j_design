@@ -23,25 +23,6 @@ public class EchoServer {
          * чтобы начать разговор.
          * 9000 - это порт. По умолчанию адрес будет localhost.
          */
-        /*try (ServerSocket server = new ServerSocket(9000)) {
-            while (!server.isClosed()) {
-                    // server.acсept - ожидает, когда к нему обратиться клиент. Программа переходит в режим ожидания.
-                    Socket socket = server.accept();
-                    //Когда клиент обратился к серверу программа получает входной поток и может
-                    // отправить данные в выходной поток.
-                try (OutputStream out = socket.getOutputStream());
-                    BufferedReader in = new BufferedReader(
-                                new InputStreamReader(socket.getInputStream()))) {
-                    for (String str = in.readLine(); str != null && !str.isEmpty(); str = in.readLine()) {
-                                System.out.println(str);
-                    }
-                    out.write("HTTP/1.1 200 OK\r\n\"".getBytes());
-                }
-            }
-        }
-    }
-}
-*/
         try (ServerSocket server = new ServerSocket(9000)) {
             while (!server.isClosed()) {
                 // server.acсept - ожидает, когда к нему обратиться клиент. Программа переходит в режим ожидания.
