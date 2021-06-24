@@ -5,8 +5,7 @@ package ru.job4j.io.socket;
  * @version 1.1
  * Добавлена валидация
  *  Если клиент отправлять запрос http://localhost:9000/?msg=Bye нужно завершить работу сервера.
- *  отменено два последних коммита git reset --hard HEAD~1
- */
+**/
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
