@@ -31,6 +31,8 @@ public class EchoServer {
                 try (OutputStream out = socket.getOutputStream();
                      BufferedReader in = new BufferedReader(
                              new InputStreamReader(socket.getInputStream()))) {
+                    //В ответ мы записываем строчку.
+                    out.write("HTTP/1.1 200 OK\r\n\"".getBytes());
                     //В программе читается весь входной поток.
                     for (String str = in.readLine(); str != null && !str.isEmpty(); str = in.readLine()) {
                         if (str.contains("msg=Bye")) {
@@ -38,8 +40,6 @@ public class EchoServer {
                         }
                         System.out.println(str);
                     }
-                    //В ответ мы записываем строчку.
-                    out.write("HTTP/1.1 200 OK\r\n\"".getBytes());
                 }
             }
         }
