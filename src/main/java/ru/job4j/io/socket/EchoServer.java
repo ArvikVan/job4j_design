@@ -2,9 +2,15 @@ package ru.job4j.io.socket;
 /**
  * класс описывает общение клиент-сервер
  * @author arvik
- * @version 1.1
+ * @version 1.2
  * Добавлена валидация
- *  Если клиент отправлять запрос http://localhost:9000/?msg=Bye нужно завершить работу сервера.
+ * Если клиент отправлять запрос http://localhost:9000/?msg=Bye нужно завершить работу сервера.
+ * Ответить - Hello  http://localhost:9000/?msg=Hello
+ * Завершить работу сервера. http://localhost:9000/?msg=Exit
+ * Запрос с параметром What, должен вернуть ответ типа What. http://localhost:9000/?msg=What
+ * Убрал цикл, потому что выводит все подряд, обернул в if
+ * Добавил валидацию согласно условию
+ *
 **/
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -32,13 +38,18 @@ public class EchoServer {
                      BufferedReader in = new BufferedReader(
                              new InputStreamReader(socket.getInputStream()))) {
                     //В ответ мы записываем строчку.
-                    out.write("HTTP/1.1 200 OK\r\n\"".getBytes());
-                    //В программе читается весь входной поток.
-                    for (String str = in.readLine(); str != null && !str.isEmpty(); str = in.readLine()) {
-                        if (str.contains("msg=Bye")) {
-                            server.close();
-                        }
+                    out.write("HTTP/1.1 200 OK\r\n\r\n".getBytes());
+                    String str = in.readLine();
+                    if (str != null && !str.isEmpty()) {
                         System.out.println(str);
+                        if (str.contains("msg=Hello")) {
+                            out.write("Hello, dear friend.\r\n".getBytes());
+                        } else if (str.contains("msg=Exit")) {
+                            out.write("The server is closed.\r\n".getBytes());
+                            server.close();
+                        } else {
+                            out.write("What.\r\n".getBytes());
+                        }
                     }
                 }
             }
