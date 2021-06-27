@@ -17,17 +17,23 @@ public class UsageLog4j {
     private static final Logger LOG = LoggerFactory.getLogger(UsageLog4j.class.getName());
 
     public static void main(String[] args) {
-        int i = Integer.MAX_VALUE;
-        byte b = Byte.MAX_VALUE;
-        long l = Long.MAX_VALUE;
-        short s = Short.MAX_VALUE;
-        char c = 1010;
-        float f = Float.MAX_VALUE;
-        double d = Double.MAX_VALUE;
-        boolean bl = true;
-        LOG.debug("\n" + "Value of int: {}, Value of byte: {}, Value of long: {}, "
-                +  "Value of short: {}, Value of char: {}, Value of float: {}, "
-                + "Value of double: {}, Value of boolean: {},",
-                i + "\n", b + "\n", l + "\n", s + "\n", c + "\n", f + "\n", d + "\n", bl);
+            int i = Integer.MAX_VALUE;
+            byte b = Byte.MAX_VALUE;
+            long l = Long.MAX_VALUE;
+            short s = Short.MAX_VALUE;
+            char c = 1010;
+            float f = Float.MAX_VALUE;
+            double d = Double.MAX_VALUE;
+            boolean bl = true;
+            LOG.debug("\n" + "Value of int: {}, Value of byte: {}, Value of long: {}, "
+                            +  "Value of short: {}, Value of char: {}, Value of float: {}, "
+                            + "Value of double: {}, Value of boolean: {},",
+                    i + "\n", b + "\n", l + "\n", s + "\n", c + "\n", f + "\n", d + "\n", bl);
+        try {
+            throw new Exception("Not supported code");
+        } catch (Exception e) {
+            LOG.error("Exeption in log example", e);
+        }
+
     }
 }

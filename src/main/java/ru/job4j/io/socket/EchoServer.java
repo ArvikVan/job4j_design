@@ -2,7 +2,7 @@ package ru.job4j.io.socket;
 /**
  * класс описывает общение клиент-сервер
  * @author arvik
- * @version 1.2
+ * @version 1.3
  * Добавлена валидация
  * Если клиент отправлять запрос http://localhost:9000/?msg=Bye нужно завершить работу сервера.
  * Ответить - Hello  http://localhost:9000/?msg=Hello
@@ -10,8 +10,12 @@ package ru.job4j.io.socket;
  * Запрос с параметром What, должен вернуть ответ типа What. http://localhost:9000/?msg=What
  * Убрал цикл, потому что выводит все подряд, обернул в if
  * Добавил валидацию согласно условию
+ * уберите из сигнатуры метода main исключение. Обработайте его через catch c выводом в логгер.
  *
 **/
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -20,7 +24,9 @@ import java.net.ServerSocket;
 import java.net.Socket;
 
 public class EchoServer {
-    public static void main(String[] args) throws IOException {
+    private static final Logger LOG = LoggerFactory.getLogger(EchoServer.class.getName());
+
+    public static void main(String[] args) {
         /**
          * try (ServerSocket server = new ServerSocket(9000))
          * ServerSocket создает сервер. Чтобы клиент мог узнать,
@@ -53,6 +59,8 @@ public class EchoServer {
                     }
                 }
             }
+        } catch (IOException e) {
+            LOG.error("Exception in log example", e);
         }
     }
 }
