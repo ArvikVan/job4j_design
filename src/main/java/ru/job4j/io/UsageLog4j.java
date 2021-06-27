@@ -2,14 +2,14 @@ package ru.job4j.io;
 /**
  * класс описывает логгирование системы
  * @author arvik
- * @version 1.2
+ * @version 1.3
  * заменены импорты и подключена в поме библиотека slf4j
  * private static final Logger LOG = LoggerFactory.getLogger(UsageLog4j.class.getName());
  * Создайте 8 переменных с примитивным типом. Все типы должны быть разными.
  * Выведите переменные на консоль через логгер.
+ * изменен путь src/main/resources
  */
 
-import org.apache.log4j.BasicConfigurator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -17,7 +17,6 @@ public class UsageLog4j {
     private static final Logger LOG = LoggerFactory.getLogger(UsageLog4j.class.getName());
 
     public static void main(String[] args) {
-        BasicConfigurator.configure();
         int i = Integer.MAX_VALUE;
         byte b = Byte.MAX_VALUE;
         long l = Long.MAX_VALUE;
