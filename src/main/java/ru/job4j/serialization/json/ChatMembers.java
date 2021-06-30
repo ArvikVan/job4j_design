@@ -12,14 +12,14 @@ import java.util.Arrays;
 public class ChatMembers {
     private final boolean online;
     private final int age;
-    private final String nnickName;
+    private final String chatName;
     private final Contact contact;
     private final String[] members;
 
-    public ChatMembers(boolean online, int age, String nnickName, Contact contact, String... members) {
+    public ChatMembers(boolean online, int age, String chatName, Contact contact, String... members) {
         this.online = online;
         this.age = age;
-        this.nnickName = nnickName;
+        this.chatName = chatName;
         this.contact = contact;
         this.members = members;
     }
@@ -29,7 +29,7 @@ public class ChatMembers {
         return "ChatMembers{"
                 + "online=" + online
                 + ", age=" + age
-                + ", nnickName='" + nnickName + '\''
+                + ", chatName='" + chatName + '\''
                 + ", contact=" + contact
                 + ", members=" + Arrays.toString(members)
                 + '}';
@@ -37,7 +37,7 @@ public class ChatMembers {
 
     public static void main(String[] args) {
         final ChatMembers chatMembers = new ChatMembers(true,
-                25, "jenya", new Contact("11111"), "AlexTer", "Igor Kovalkov");
+                25, "junior", new Contact("11111"), "AlexTer", "Igor Kovalkov");
         /* in JSON*/
         final Gson gson = new GsonBuilder().create();
         System.out.println(gson.toJson(chatMembers));
