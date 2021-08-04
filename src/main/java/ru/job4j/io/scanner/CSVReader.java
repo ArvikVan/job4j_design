@@ -2,17 +2,23 @@ package ru.job4j.io.scanner;
 
 import ru.job4j.io.ArgsName;
 
+import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.PrintStream;
 import java.nio.file.Path;
 import java.util.*;
 import java.util.stream.IntStream;
 
 /**
  * @author arvik
- * @version 1.0
+ * @version 1.1
  * Задача класса прочитать данные из CSV файла и вывести их.
- * src/main/java/ru/job4j/io/scanner/example.csv
+ * 1.1 Вместо \n надо использовать System.lineSeparator().
+ * 1.1 Что не делать проверки можно поступить проще: for (int index : row)
+ * 1.1 Вместо FileWriter создали нужный PrintStream
+ * try (PrintStream out = new PrintStream(... ? new FileOutputStream(...) : System.out)) {
+ *
  */
 public class CSVReader {
     private final Path path;
@@ -41,7 +47,9 @@ public class CSVReader {
      */
     public void read() {
         try (Scanner scanner = new Scanner(path).useDelimiter(System.lineSeparator());
-            FileWriter fileWriter = new FileWriter("src/main/java/ru/job4j/io/scanner/outexample.csv", false);) {
+             PrintStream fileWriter = new PrintStream(!out.equals("stdout")
+                     ? new FileOutputStream("src/main/java/ru/job4j/io/scanner/outexample.csv") : System.out) //1.1
+            ) {
             String[] collName = scanner.next().split(delimetr);
 
            List<Integer> row = new ArrayList<>();
@@ -50,20 +58,14 @@ public class CSVReader {
                     row.add(i);
                 }
             }
-            fileWriter.write(filters + "\n");
+            fileWriter.println(filters + System.lineSeparator()); //1.1
             while (scanner.hasNext()) {
                 String tmp = "";
                 String[] coll = scanner.next().split(delimetr);
-                for (int i = 0; i < coll.length; i++) {
-                    if (row.contains(i)) {
-                        tmp = tmp.concat(tmp.isBlank() ? "" : "; ") + coll[i];
-                    }
+                for (int integer : row) { //1.1
+                    tmp = tmp.concat(tmp.isBlank() ? "" : "; ") + coll[integer];
                 }
-                if (!out.equals("stdout")) {
-                    fileWriter.write(tmp + "\n");
-                } else {
-                    System.out.println(tmp);
-                }
+                //1.1
             }
         } catch (IOException e) {
             e.printStackTrace();
