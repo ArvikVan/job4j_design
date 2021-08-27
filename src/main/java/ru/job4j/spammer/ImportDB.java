@@ -3,6 +3,8 @@ package ru.job4j.spammer;
  * @author arvikv
  * @version 1.0
  * класс описывает добавление в бд из файла
+ * 1.1 users.add(new User(temp[0], temp[1]));
+ * перед этим хорошо бы проверить что у вас массив соот-й длины
  */
 
 import java.io.*;
@@ -36,6 +38,9 @@ public class ImportDB {
         try (BufferedReader rd = new BufferedReader(new FileReader(dump))) {
             rd.lines().forEach(x -> {
                 String[] temp = x.split(";");
+                if (temp.length < 2) {
+                    throw new IllegalArgumentException("wrong arguments number");
+                }
                 users.add(new User(temp[0], temp[1]));
             });
         }
